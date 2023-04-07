@@ -2,10 +2,7 @@ use crate::ast::Node;
 use nom::{
     branch::alt,
     bytes::streaming::{escaped, tag, take_while, take_while1},
-    character::{
-        streaming::{one_of},
-        is_alphabetic, is_digit, is_newline, is_space,
-    },
+    character::{is_alphabetic, is_digit, is_newline, is_space, streaming::one_of},
     combinator::recognize,
     error::context,
     multi::separated_list1,
@@ -122,12 +119,15 @@ mod test {
 
     #[test]
     fn test_quote() {
-        assert_parses_into(Node::List(vec![
-            Node::Quote(Box::new(Node::List(vec![Node::IntegerLiteral(1)]))),
-            Node::Quote(Box::new(Node::IntegerLiteral(1))),
-            Node::Quote(Box::new(Node::StringLiteral("x".into()))),
-            Node::Quote(Box::new(Node::Quote(Box::new(Node::IntegerLiteral(1)))))
-        ]), b"('(1) '1 '\"x\" ''1)");
-        // let (remaining, n) = node(b"''")
+        assert_parses_into(
+            Node::List(vec![
+                Node::Quote(Box::new(Node::List(vec![Node::IntegerLiteral(1)]))),
+                Node::Quote(Box::new(Node::IntegerLiteral(1))),
+                Node::Quote(Box::new(Node::StringLiteral("x".into()))),
+                Node::Quote(Box::new(Node::Quote(Box::new(Node::IntegerLiteral(1))))),
+                Node::Quote(Box::new(Node::Identifier("deadbeef".into()))),
+            ]),
+            b"('(1) '1 '\"x\" ''1 'deadbeef)",
+        );
     }
 }
