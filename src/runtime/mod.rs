@@ -31,14 +31,14 @@ impl NSStack {
         Err(LispError::VariableNotFound(name.into()))
     }
 
-    pub fn lookup_mut(&mut self, name: &str) -> Result<&mut Data> {
-        for space in self.spaces.iter_mut().rev() {
-            if let Some(d) = space.get_mut(name) {
-                return Ok(d);
-            }
-        }
-        Err(LispError::VariableNotFound(name.into()))
-    }
+    // pub fn lookup_mut(&mut self, name: &str) -> Result<&mut Data> {
+    //     for space in self.spaces.iter_mut().rev() {
+    //         if let Some(d) = space.get_mut(name) {
+    //             return Ok(d);
+    //         }
+    //     }
+    //     Err(LispError::VariableNotFound(name.into()))
+    // }
 
     pub fn enter_scope(&mut self) {
         self.spaces.push(HashMap::new())
