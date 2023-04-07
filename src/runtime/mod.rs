@@ -76,7 +76,13 @@ impl Runtime {
         stack.register_intrinsic("if", &intrinsic::f_if)?;
         stack.register_intrinsic("fn", &intrinsic::f_fn)?;
         stack.register_intrinsic("debug", &intrinsic::debug)?;
-        stack.register_intrinsic("eq", &intrinsic::eq)?;
+        stack.register_intrinsic("=", &intrinsic::eq)?;
+        stack.register_intrinsic("!=", &intrinsic::ne)?;
+        stack.register_intrinsic("+", &intrinsic::add)?;
+        stack.register_intrinsic("-", &intrinsic::sub)?;
+        stack.register_intrinsic("*", &intrinsic::mul)?;
+        stack.register_intrinsic("/", &intrinsic::div)?;
+        stack.register_intrinsic("mod", &intrinsic::modul)?;
         Ok(Self { stack })
     }
 
@@ -134,11 +140,12 @@ impl Data {
                         "Wrong function argument count.".into(),
                     ));
                 }
-                stack.enter_scope();
+                let mut k = HashMap::new();
                 for (i, param) in params.iter().enumerate() {
                     let param_data = param.eval(stack)?;
-                    stack.top()?.insert(argnames[i].clone(), param_data.clone());
+                    k.insert(argnames[i].clone(), param_data.clone());
                 }
+                stack.spaces.push(k);
                 let r = body.eval(stack);
                 stack.exit_scope();
                 r

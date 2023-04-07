@@ -105,7 +105,7 @@ pub fn debug(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
 
 pub fn eq(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
     if args.len() != 2 {
-        Err(LispError::SyntaxError("Eq only takes 2 arguments".into()))
+        Err(LispError::SyntaxError("= only takes 2 arguments".into()))
     } else {
         let left = args[0].eval(stack)?;
         let right = args[1].eval(stack)?;
@@ -113,6 +113,85 @@ pub fn eq(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
             1
         } else {
             0
+        }))
+    }
+}
+
+pub fn add(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
+    if args.len() != 2 {
+        Err(LispError::SyntaxError("+ only takes 2 arguments".into()))
+    } else {
+        let left = args[0].eval(stack)?;
+        let right = args[1].eval(stack)?;
+        match (left, right) {
+            (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a + b)),
+            _ => Err(LispError::TypeError("You can only add integers.".into()))
+        }
+    }
+}
+
+pub fn sub(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
+    if args.len() != 2 {
+        Err(LispError::SyntaxError("- only takes 2 arguments".into()))
+    } else {
+        let left = args[0].eval(stack)?;
+        let right = args[1].eval(stack)?;
+        match (left, right) {
+            (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a - b)),
+            _ => Err(LispError::TypeError("You can only add integers.".into()))
+        }
+    }
+}
+
+pub fn mul(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
+    if args.len() != 2 {
+        Err(LispError::SyntaxError("* only takes 2 arguments".into()))
+    } else {
+        let left = args[0].eval(stack)?;
+        let right = args[1].eval(stack)?;
+        match (left, right) {
+            (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a * b)),
+            _ => Err(LispError::TypeError("You can only add integers.".into()))
+        }
+    }
+}
+
+pub fn div(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
+    if args.len() != 2 {
+        Err(LispError::SyntaxError("/ only takes 2 arguments".into()))
+    } else {
+        let left = args[0].eval(stack)?;
+        let right = args[1].eval(stack)?;
+        match (left, right) {
+            (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a / b)),
+            _ => Err(LispError::TypeError("You can only add integers.".into()))
+        }
+    }
+}
+
+pub fn modul(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
+    if args.len() != 2 {
+        Err(LispError::SyntaxError("mod only takes 2 arguments".into()))
+    } else {
+        let left = args[0].eval(stack)?;
+        let right = args[1].eval(stack)?;
+        match (left, right) {
+            (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a % b)),
+            _ => Err(LispError::TypeError("You can only add integers.".into()))
+        }
+    }
+}
+
+pub fn ne(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
+    if args.len() != 2 {
+        Err(LispError::SyntaxError("= only takes 2 arguments".into()))
+    } else {
+        let left = args[0].eval(stack)?;
+        let right = args[1].eval(stack)?;
+        Ok(Data::Int(if left == right {
+            0
+        } else {
+            1
         }))
     }
 }

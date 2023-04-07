@@ -15,7 +15,16 @@ fn is_separator(c: u8) -> bool {
 }
 
 fn is_identifier_start(c: u8) -> bool {
-    is_alphabetic(c) || c == b'+' || c == b'-' || c == b'*' || c == b'/' || c == b'_'
+    is_alphabetic(c)
+        || c == b'+'
+        || c == b'-'
+        || c == b'*'
+        || c == b'/'
+        || c == b'_'
+        || c == b'='
+        || c == b'>'
+        || c == b'<'
+        || c == b'!'
 }
 
 fn is_identifier_body(c: u8) -> bool {
