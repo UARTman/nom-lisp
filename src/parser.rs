@@ -120,8 +120,14 @@ mod test {
         )
     }
 
+    #[test]
     fn test_quote() {
-        let input = b"";
+        assert_parses_into(Node::List(vec![
+            Node::Quote(Box::new(Node::List(vec![Node::IntegerLiteral(1)]))),
+            Node::Quote(Box::new(Node::IntegerLiteral(1))),
+            Node::Quote(Box::new(Node::StringLiteral("x".into()))),
+            Node::Quote(Box::new(Node::Quote(Box::new(Node::IntegerLiteral(1)))))
+        ]), b"('(1) '1 '\"x\" ''1)");
         // let (remaining, n) = node(b"''")
     }
 }
