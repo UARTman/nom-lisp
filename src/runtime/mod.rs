@@ -76,6 +76,7 @@ impl Runtime {
         stack.register_intrinsic("if", &intrinsic::f_if)?;
         stack.register_intrinsic("fn", &intrinsic::f_fn)?;
         stack.register_intrinsic("debug", &intrinsic::debug)?;
+        stack.register_intrinsic("eq", &intrinsic::eq)?;
         Ok(Self { stack })
     }
 

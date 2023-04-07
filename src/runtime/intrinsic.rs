@@ -102,3 +102,17 @@ pub fn debug(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
     }
     Ok(Data::Empty)
 }
+
+pub fn eq(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
+    if args.len() != 2 {
+        Err(LispError::SyntaxError("Eq only takes 2 arguments".into()))
+    } else {
+        let left = args[0].eval(stack)?;
+        let right = args[1].eval(stack)?;
+        Ok(Data::Int(if left == right {
+            1
+        } else {
+            0
+        }))
+    }
+}
