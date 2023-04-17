@@ -92,7 +92,7 @@ mod test {
 
     fn assert_parses_into(expect: Node, input: &[u8]) {
         let (input, output) = node(input).unwrap();
-        assert!(input.is_empty(), "Input is {:?}", input);
+        assert!(input.is_empty(), "Remaining input is {:?}", input);
         assert_eq!(expect, output);
     }
 

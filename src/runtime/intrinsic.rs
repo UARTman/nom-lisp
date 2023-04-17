@@ -109,11 +109,7 @@ pub fn eq(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
     } else {
         let left = args[0].eval(stack)?;
         let right = args[1].eval(stack)?;
-        Ok(Data::Int(if left == right {
-            1
-        } else {
-            0
-        }))
+        Ok(Data::Int(if left == right { 1 } else { 0 }))
     }
 }
 
@@ -125,7 +121,7 @@ pub fn add(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
         let right = args[1].eval(stack)?;
         match (left, right) {
             (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a + b)),
-            _ => Err(LispError::TypeError("You can only add integers.".into()))
+            _ => Err(LispError::TypeError("You can only add integers.".into())),
         }
     }
 }
@@ -138,7 +134,7 @@ pub fn sub(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
         let right = args[1].eval(stack)?;
         match (left, right) {
             (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a - b)),
-            _ => Err(LispError::TypeError("You can only add integers.".into()))
+            _ => Err(LispError::TypeError("You can only add integers.".into())),
         }
     }
 }
@@ -151,7 +147,7 @@ pub fn mul(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
         let right = args[1].eval(stack)?;
         match (left, right) {
             (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a * b)),
-            _ => Err(LispError::TypeError("You can only add integers.".into()))
+            _ => Err(LispError::TypeError("You can only add integers.".into())),
         }
     }
 }
@@ -164,7 +160,7 @@ pub fn div(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
         let right = args[1].eval(stack)?;
         match (left, right) {
             (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a / b)),
-            _ => Err(LispError::TypeError("You can only add integers.".into()))
+            _ => Err(LispError::TypeError("You can only add integers.".into())),
         }
     }
 }
@@ -177,7 +173,7 @@ pub fn modul(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
         let right = args[1].eval(stack)?;
         match (left, right) {
             (Data::Int(a), Data::Int(b)) => Ok(Data::Int(a % b)),
-            _ => Err(LispError::TypeError("You can only add integers.".into()))
+            _ => Err(LispError::TypeError("You can only add integers.".into())),
         }
     }
 }
@@ -188,10 +184,6 @@ pub fn ne(stack: &mut NSStack, args: &[Node]) -> Result<Data> {
     } else {
         let left = args[0].eval(stack)?;
         let right = args[1].eval(stack)?;
-        Ok(Data::Int(if left == right {
-            0
-        } else {
-            1
-        }))
+        Ok(Data::Int(if left == right { 0 } else { 1 }))
     }
 }
